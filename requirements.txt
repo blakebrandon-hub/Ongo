@@ -1,0 +1,6 @@
+flask
+openai==0.28.0
+torch
+torchvision
+transformers
+Pillow
