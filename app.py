@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-os.environ["REPLICATE_API_TOKEN"] =  "r8_BzaRVpOcg1vZSdQEUxODp6Eghb10UQR45FkXJ"
+os.environ["REPLICATE_API_TOKEN"] = os.getenv("REPLICATE_API_TOKEN")
 
 ELEVENLABS_API_KEY = "sk_da82c1d3921e94dae9422671d0ad8ab5442db9516894c4d2"
 VOICE_ID = "L6vNCySpJygzavqMH5vx"
