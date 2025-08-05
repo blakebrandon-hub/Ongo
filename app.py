@@ -77,7 +77,7 @@ def critique(caption_text):
 
     intro = random.choices(
         ["Give a serious critique.", "Deliver a short critique."],
-        weights=[0.7, 0.3]
+        weights=[0.1, 0.9]
     )[0]
 
     maybe_bite = random.choice(["", random.choice(interjections)])
