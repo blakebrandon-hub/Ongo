@@ -73,16 +73,6 @@ def critique(caption_text):
         "The artist should be investigated."
     ]
 
-    intro = random.choices(
-        ["Give a serious critique.", "Deliver a short critique."],
-        weights=[0.1, 0.9]
-    )[0]
-
-    maybe_bite = random.choices(
-        ["", random.choice(interjections)],
-        weights=[0.7, 0.3]
-    )[0]
-
     # Praise mode if toilet/dumpster/etc. is detected
     if any(word in caption_text.lower() for word in weird_love_triggers):
         prompt = f"""{maybe_bite}
