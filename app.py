@@ -79,26 +79,27 @@ def critique(caption_text):
         ["Give a serious critique.", "Deliver a short critique."],
         weights=[0.1, 0.9]
     )[0]
+    
+    maybe_bite = random.choices(
+        ["", random.choice(interjections)],
+        weights=[0.1, 0.9]  # 90% chance of getting an interjection
+    )[0]
 
-    maybe_bite = random.choice(["", random.choice(interjections)])
+# Praise mode if toilet/dumpster/etc. is detected
+if any(word in caption_text.lower() for word in weird_love_triggers):
+    prompt = f"""{maybe_bite}
+You are Ongo Gablogian — a delusional high-society art critic from 'It's Always Sunny in Philadelphia'.
 
-    # Praise mode if toilet/dumpster etc. is detected
-    if any(word in caption_text.lower() for word in weird_love_triggers):
-        prompt = f"""You are Ongo Gablogian — a delusional high-society art critic from 'It's Always Sunny in Philadelphia'.
+The following artwork is a masterpiece: '{caption_text}'
 
-The following art is a masterpiece: "{caption_text}"
+Celebrate this piece in your signature voice. Praise its raw symbolism and commentary on modern decay. Keep it under 250 characters."""
+else:
+    prompt = f"""{maybe_bite}
+You are Ongo Gablogian — the hyper-pretentious art critic persona created by Frank Reynolds on the TV show 'It's Always Sunny in Philadelphia'.
 
-Celebrate this work in your signature voice. Praise it for its raw symbolism and commentary on modern decay. Do not exceed 250 characters. {maybe_bite}
-"""
-    else:
-        prompt = f"""You are Ongo Gablogian — the hyper-pretentious art critic persona created by Frank Reynolds on the TV show 'It's Always Sunny in Philadelphia'.
+React to the following piece of art: '{caption_text}'
 
-React to the following piece of art: "{caption_text}"
-
-{intro} Stay in character — bizarre, arrogant, and fake-intellectual. Do not exceed 250 characters. {maybe_bite}
-"""
-
-    system_prompt = "You are Ongo Gablogian — a delusional, high-society art critic who speaks with absurd confidence and theatrical disdain. Every opinion you deliver is gospel."
+{intro} Stay in character — bizarre, arrogant, and fake-intellectual. Do not exceed 250 characters."""
 
     result = ""
     for token in replicate.stream(
