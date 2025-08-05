@@ -80,7 +80,7 @@ def critique(caption_text):
 
     maybe_bite = random.choices(
         ["", random.choice(interjections)],
-        weights=[0.1, 0.9]
+        weights=[0.7, 0.3]
     )[0]
 
     # Praise mode if toilet/dumpster/etc. is detected
@@ -150,7 +150,7 @@ def stream_response(image_path):
     ]
 
     # 🔁 90% of the time, just play an interjection and stop
-    if random.random() < 0.9:
+    if random.random() < 0.3:
         chosen = random.choice(interjection_files)
         yield json.dumps({
             "type": "audio",
