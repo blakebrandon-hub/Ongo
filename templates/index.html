@@ -260,6 +260,7 @@ while (true) {
       const audioSource = audioPlayer.querySelector("source");
 
       audioSource.src = data.url
+      console.log(data.url)
       audioPlayer.load();
       audioBlock.classList.remove("d-none");
 
@@ -290,6 +291,7 @@ if (!gotText) {
 
 </body>
 </html>
+
 
 
 
