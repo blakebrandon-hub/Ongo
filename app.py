@@ -127,14 +127,14 @@ def generate_audio(text, output_path):
 
 def stream_response(image_path):
     interjections = {
-        "Bullshit!": "static/audio/bullshit.mp3",
-        "Derivative!": "static/audio/derivative.mp3",
-        "I weep for the canvas.": "static/audio/weep.mp3",
-        "This piece offends my senses and my lineage.": "static/audio/lineage.mp3",
-        "This isn't art — it's vandalism with ambition.": "static/audio/vandalism.mp3",
-        "A tragic attempt at relevance.": "static/audio/tragic.mp3",
-        "I've sneezed more meaning onto paper.": "static/audio/paper.mp3",
-        "The artist should be investigated.": "static/audio/investigated.mp3",
+        "Bullshit!": "static/audio/interjections/bullshit.mp3",
+        "Derivative!": "static/audio/interjections/derivative.mp3",
+        "I weep for the canvas.": "static/audio/interjections/weep.mp3",
+        "This piece offends my senses and my lineage.": "static/audio/interjections/lineage.mp3",
+        "This isn't art — it's vandalism with ambition.": "static/audio/interjections/vandalism.mp3",
+        "A tragic attempt at relevance.": "static/audio/interjections/tragic.mp3",
+        "I've sneezed more meaning onto paper.": "static/audio/interjections/paper.mp3",
+        "The artist should be investigated.": "static/audio/interjections/investigated.mp3",
     }
 
     # 🔁 90% of the time, fire off a pre-recorded interjection
