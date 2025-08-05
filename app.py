@@ -5,7 +5,7 @@ import requests
 import json
 import random
 import re
-
+from PIL import Image
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
@@ -19,8 +19,6 @@ VOICE_ID = "L6vNCySpJygzavqMH5vx"
 @app.route("/")
 def index():
     return render_template("index.html")
-
-from PIL import Image
 
 @app.route("/critique", methods=["POST"])
 def upload_image():
@@ -55,7 +53,7 @@ def caption(image_path):
                 "image_input": [img],
                 "reasoning_effort": "medium",
             },
-            api_token = os.environ.get("REPLICATE_API_TOKEN")
+            api_token=os.environ.get("REPLICATE_API_TOKEN")
         ):
             result += token.data
     return result.strip()
@@ -82,7 +80,7 @@ def critique(caption_text):
 
     maybe_bite = random.choices(
         ["", random.choice(interjections)],
-        weights=[0.1, 0.9]  # 90% chance of getting an interjection
+        weights=[0.1, 0.9]
     )[0]
 
     # Praise mode if toilet/dumpster/etc. is detected
@@ -121,7 +119,6 @@ React to the following piece of art: '{caption_text}'
 
     return cleaned
 
-
 def generate_audio(text, output_path):
     url = f"https://api.elevenlabs.io/v1/text-to-speech/{VOICE_ID}/stream"
     headers = {
@@ -141,6 +138,16 @@ def generate_audio(text, output_path):
         print(response.text)
 
 def stream_response(image_path):
+    # 30% chance to just fire off an interjection (no critique)
+    interjection_files = ["bullshit.mp3", "derivative.mp3", "weep.mp3", "lineage.mp3", "vandalism.mp3", "tragic.mp3", "paper.mp3", "investigated.mp3"]
+    if random.random() < 0.9:
+        chosen = random.choice(interjection_files)
+        message = os.path.splitext(chosen)[0].replace("_", " ").capitalize() + "!"
+        yield json.dumps({"type": "text", "content": message}) + "\n"
+        yield json.dumps({"type": "audio", "url": f"/static/audio/interjections/{chosen}"}) + "\n"
+        return
+
+    # Otherwise proceed normally
     caption_text = caption(image_path)
     final_critique = critique(caption_text)
 
