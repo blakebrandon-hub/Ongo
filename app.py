@@ -11,6 +11,8 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
+REPLICATE_API_TOKEN = "r8_BzaRVpOcg1vZSdQEUxODp6Eghb10UQR45FkXJ"
+
 ELEVENLABS_API_KEY = "sk_da82c1d3921e94dae9422671d0ad8ab5442db9516894c4d2"
 VOICE_ID = "L6vNCySpJygzavqMH5vx"
 
@@ -51,7 +53,8 @@ def caption(image_path):
                 "prompt": "Describe this image in one sentence.",
                 "system_prompt": "You are a visual description assistant.",
                 "image_input": [img],
-                "reasoning_effort": "medium"
+                "reasoning_effort": "medium",
+                "api-token": REPLICATE_API_TOKEN
             }
         ):
             result += token.data
@@ -103,7 +106,8 @@ React to the following piece of art: "{caption_text}"
         input={
             "prompt": prompt,
             "system_prompt": system_prompt,
-            "reasoning_effort": "high"
+            "reasoning_effort": "high",
+            "api-token": REPLICATE_API_TOKEN
         }
     ):
         result += token.data
