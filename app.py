@@ -138,16 +138,27 @@ def generate_audio(text, output_path):
         print(response.text)
 
 def stream_response(image_path):
-    # 30% chance to just fire off an interjection (no critique)
-    interjection_files = ["bullshit.mp3", "derivative.mp3", "weep.mp3", "lineage.mp3", "vandalism.mp3", "tragic.mp3", "paper.mp3", "investigated.mp3"]
+    interjection_files = [
+        "bullshit.mp3",
+        "derivative.mp3",
+        "weep.mp3",
+        "lineage.mp3",
+        "vandalism.mp3",
+        "tragic.mp3",
+        "paper.mp3",
+        "investigated.mp3"
+    ]
+
+    # 🔁 90% of the time, just play an interjection and stop
     if random.random() < 0.9:
         chosen = random.choice(interjection_files)
-        message = os.path.splitext(chosen)[0].replace("_", " ").capitalize() + "!"
-        yield json.dumps({"type": "text", "content": message}) + "\n"
-        yield json.dumps({"type": "audio", "url": f"/static/audio/interjections/{chosen}"}) + "\n"
+        yield json.dumps({
+            "type": "audio",
+            "url": f"/static/audio/interjections/{chosen}"
+        }) + "\n"
         return
 
-    # Otherwise proceed normally
+    # 🎨 Otherwise, generate caption and critique as normal
     caption_text = caption(image_path)
     final_critique = critique(caption_text)
 
@@ -157,6 +168,7 @@ def stream_response(image_path):
 
     yield json.dumps({"type": "text", "content": final_critique}) + "\n"
     yield json.dumps({"type": "audio", "url": "/static/audio/output.mp3"}) + "\n"
+
 
 if __name__ == "__main__":
     app.run(debug=True)
