@@ -137,11 +137,11 @@ def stream_response(image_path):
         "The artist should be investigated.": "static/audio/interjections/investigated.mp3",
     }
 
-    # 🔁 90% of the time, fire off a pre-recorded interjection
-    if random.random() < 0.9:
+    # 🔁 30% of the time, fire off a pre-recorded interjection
+    if random.random() < 0.3:
         text, audio_path = random.choice(list(interjections.items()))
         yield json.dumps({ "type": "text", "content": text }) + "\n"
-        yield json.dumps({ "type": "audio", "url": "/" + audio_path})
+        yield json.dumps({ "type": "audio", "url": "/" + audio_path}) + "\n"
         return
 
     # 🧠 Otherwise, continue with captioning + critique
@@ -154,6 +154,7 @@ def stream_response(image_path):
 
     yield json.dumps({ "type": "text", "content": final_critique }) + "\n"
     yield json.dumps({ "type": "audio", "url": "/static/audio/output.mp3?t=" + str(random.randint(1000,9999)) }) + "\n"
+
 
 
 
