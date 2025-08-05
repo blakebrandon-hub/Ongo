@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ongo's Review</title>
+</head>
+<body>
+  <h1>🎨 Ongo Gablogian's Review</h1>
+
+  <h3>Uploaded Image:</h3>
+  <img src="{{ image_url }}" alt="Uploaded Image" width="300">
+
+  <h3>Critique:</h3>
+  <p>{{ critique }}</p>
+
+  <h3>Audio Reading:</h3>
+  <audio controls>
+    <source src="{{ audio_url }}" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
+
+  <br><br>
+  <a href="/">Upload another</a>
+</body>
+</html>
