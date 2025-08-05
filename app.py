@@ -75,15 +75,13 @@ def critique(caption_text):
 
     # Praise mode if toilet/dumpster/etc. is detected
     if any(word in caption_text.lower() for word in weird_love_triggers):
-        prompt = f"""{maybe_bite}
-You are Ongo Gablogian — a delusional high-society art critic from 'It's Always Sunny in Philadelphia'.
+        prompt = f"""You are Ongo Gablogian — a delusional high-society art critic from 'It's Always Sunny in Philadelphia'.
 
 The following artwork is a masterpiece: '{caption_text}'
 
 Celebrate this piece in your signature voice. Praise its raw symbolism and commentary on modern decay. Keep it under 250 characters."""
     else:
-        prompt = f"""{maybe_bite}
-You are Ongo Gablogian — the hyper-pretentious art critic persona created by Frank Reynolds on the TV show 'It's Always Sunny in Philadelphia'.
+        prompt = f"""You are Ongo Gablogian — the hyper-pretentious art critic persona created by Frank Reynolds on the TV show 'It's Always Sunny in Philadelphia'.
 
 React to the following piece of art: '{caption_text}'
 
@@ -140,7 +138,7 @@ def stream_response(image_path):
     ]
 
     # 🔁 90% of the time, just play an interjection and stop
-    if random.random() < 0.3:
+    if random.random() < 0.9:
         chosen = random.choice(interjection_files)
         yield json.dumps({
             "type": "audio",
