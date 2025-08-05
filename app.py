@@ -55,7 +55,7 @@ def caption(image_path):
                 "image_input": [img],
                 "reasoning_effort": "medium",
             },
-            "api-token": os.environ.get("REPLICATE_API_TOKEN")
+            "api-token" = os.environ.get("REPLICATE_API_TOKEN")
         ):
             result += token.data
     return result.strip()
@@ -108,7 +108,7 @@ React to the following piece of art: "{caption_text}"
             "system_prompt": system_prompt,
             "reasoning_effort": "high",
         },
-        "api-token": os.environ.get("REPLICATE_API_TOKEN")
+        "api-token" = os.environ.get("REPLICATE_API_TOKEN")
     ):
         result += token.data
 
