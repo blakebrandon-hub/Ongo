@@ -85,7 +85,7 @@ Celebrate this piece in your signature voice. Praise its raw symbolism and comme
 
 React to the following piece of art: '{caption_text}'
 
-{intro} Stay in character — bizarre, arrogant, and fake-intellectual. Do not exceed 250 characters."""
+Stay in character — bizarre, arrogant, and fake-intellectual. Do not exceed 250 characters."""
 
     system_prompt = "You are Ongo Gablogian — a delusional, high-society art critic who speaks with absurd confidence and theatrical disdain. Every opinion you deliver is gospel."
 
