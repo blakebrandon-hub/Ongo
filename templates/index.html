@@ -259,7 +259,7 @@ while (true) {
       const audioPlayer = document.getElementById("audioPlayer");
       const audioSource = audioPlayer.querySelector("source");
 
-      audioSource.src = data.url + "?t=" + Date.now(); // cache-busting
+      audioSource.src = data.url
       audioPlayer.load();
       audioBlock.classList.remove("d-none");
 
@@ -290,5 +290,6 @@ if (!gotText) {
 
 </body>
 </html>
+
 
 
