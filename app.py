@@ -126,27 +126,25 @@ def generate_audio(text, output_path):
         print(response.text)
 
 def stream_response(image_path):
-    interjection_files = [
-        "bullshit.mp3",
-        "derivative.mp3",
-        "weep.mp3",
-        "lineage.mp3",
-        "vandalism.mp3",
-        "tragic.mp3",
-        "paper.mp3",
-        "investigated.mp3"
-    ]
+    interjections = {
+        "Bullshit!": "static/audio/bullshit.mp3",
+        "Derivative!": "static/audio/derivative.mp3",
+        "I weep for the canvas.": "static/audio/weep.mp3",
+        "This piece offends my senses and my lineage.": "static/audio/lineage.mp3",
+        "This isn't art — it's vandalism with ambition.": "static/audio/vandalism.mp3",
+        "A tragic attempt at relevance.": "static/audio/tragic.mp3",
+        "I've sneezed more meaning onto paper.": "static/audio/paper.mp3",
+        "The artist should be investigated.": "static/audio/investigated.mp3",
+    }
 
-    # 🔁 90% of the time, just play an interjection and stop
+    # 🔁 90% of the time, fire off a pre-recorded interjection
     if random.random() < 0.9:
-        chosen = random.choice(interjection_files)
-        yield json.dumps({
-            "type": "audio",
-            "url": f"/static/audio/interjections/{chosen}"
-        }) + "\n"
+        text, audio_path = random.choice(list(interjections.items()))
+        yield json.dumps({ "type": "text", "content": text }) + "\n"
+        yield json.dumps({ "type": "audio", "url": "/" + audio_path})
         return
 
-    # 🎨 Otherwise, generate caption and critique as normal
+    # 🧠 Otherwise, continue with captioning + critique
     caption_text = caption(image_path)
     final_critique = critique(caption_text)
 
@@ -154,8 +152,9 @@ def stream_response(image_path):
     os.makedirs(os.path.dirname(audio_path), exist_ok=True)
     generate_audio(final_critique, audio_path)
 
-    yield json.dumps({"type": "text", "content": final_critique}) + "\n"
-    yield json.dumps({"type": "audio", "url": "/static/audio/output.mp3"}) + "\n"
+    yield json.dumps({ "type": "text", "content": final_critique }) + "\n"
+    yield json.dumps({ "type": "audio", "url": "/static/audio/output.mp3?t=" + str(random.randint(1000,9999)) }) + "\n"
+
 
 
 if __name__ == "__main__":
