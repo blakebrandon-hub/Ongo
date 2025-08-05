@@ -113,11 +113,10 @@ React to the following piece of art: '{caption_text}'
     ):
         result += token.data
 
-    cleaned = result.strip()
-    if cleaned.endswith("{}"):
-        cleaned = cleaned[:-2].strip()
-
-    return cleaned
+cleaned = result.strip()
+if cleaned.endswith("{}"):
+    cleaned = cleaned[:-2].strip()
+return cleaned
 
 def generate_audio(text, output_path):
     url = f"https://api.elevenlabs.io/v1/text-to-speech/{VOICE_ID}/stream"
