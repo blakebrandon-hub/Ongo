@@ -23,14 +23,15 @@
 <body class="bg-light">
   <div class="container py-5">
 
-    <!-- Logo + Heading -->
-    <div class="d-flex align-items-center justify-content-center mb-4">
-      <img src="{{ url_for('static', filename='ongo.png') }}" alt="Ongo Logo" class="me-3" style="max-width: 18%; padding-right: 2%;">
-      <div style="text-align: center;">
-        <h1 class="display-5 fw-bold m-0">Ongo the Art Collector</h1>
-        <p class="lead m-0">Upload your masterpiece. Ongo will decide its fate.</p>
-      </div>
+  <!-- Logo + Heading -->
+  <div class="d-flex flex-column flex-md-row align-items-center justify-content-center text-center mb-4">
+    <img src="{{ url_for('static', filename='ongo.png') }}" alt="Ongo Logo"
+         class="mb-3 mb-md-0 me-md-3" style="max-width: 150px;">
+    <div>
+      <h1 class="display-5 fw-bold m-0">Ongo the Art Collector</h1>
+      <p class="lead m-0">Upload your masterpiece. Ongo will decide its fate.</p>
     </div>
+  </div>
 
     <!-- Sample Gallery -->
     <div class="text-center mb-5">
@@ -260,6 +261,7 @@ while (true) {
 </script>
 </body>
 </html>
+
 
 
 
