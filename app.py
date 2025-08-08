@@ -12,7 +12,7 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 os.environ["REPLICATE_API_TOKEN"] = os.getenv("REPLICATE_API_TOKEN")
-os.environ["ELEVENLABS_API_KEY"] = os.getenv("ELEVENLABS_API_KEY"}
+os.environ["ELEVENLABS_API_KEY"] = os.getenv("ELEVENLABS_API_KEY")
 VOICE_ID = "L6vNCySpJygzavqMH5vx"
 
 @app.route("/")
