@@ -12,8 +12,7 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 os.environ["REPLICATE_API_TOKEN"] = os.getenv("REPLICATE_API_TOKEN")
-
-ELEVENLABS_API_KEY = "sk_da82c1d3921e94dae9422671d0ad8ab5442db9516894c4d2"
+os.environ["ELEVENLABS_API_KEY"] = os.getenv("ELEVENLABS_API_KEY"}
 VOICE_ID = "L6vNCySpJygzavqMH5vx"
 
 @app.route("/")
@@ -30,7 +29,6 @@ def upload_image():
     image_path = os.path.normpath(os.path.join(app.config["UPLOAD_FOLDER"], filename)).replace("\\", "/")
     image.save(image_path)
 
-    # 🛠 Re-open and force re-save as JPEG or PNG
     try:
         img = Image.open(image_path)
         fixed_path = image_path + ".converted.jpg"
@@ -137,14 +135,14 @@ def stream_response(image_path):
         "The artist should be investigated.": "static/audio/interjections/investigated.mp3",
     }
 
-    # 🔁 30% of the time, fire off a pre-recorded interjection
+    # 30% of the time, fire off a pre-recorded interjection
     if random.random() < 0.3:
         text, audio_path = random.choice(list(interjections.items()))
         yield json.dumps({ "type": "text", "content": text }) + "\n"
         yield json.dumps({ "type": "audio", "url": "/" + audio_path}) + "\n"
         return
 
-    # 🧠 Otherwise, continue with captioning + critique
+    # Otherwise, continue with captioning + critique
     caption_text = caption(image_path)
     final_critique = critique(caption_text)
 
@@ -154,9 +152,6 @@ def stream_response(image_path):
 
     yield json.dumps({ "type": "text", "content": final_critique }) + "\n"
     yield json.dumps({ "type": "audio", "url": "/static/audio/output.mp3?t=" + str(random.randint(1000,9999)) }) + "\n"
-
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
